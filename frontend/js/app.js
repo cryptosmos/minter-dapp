@@ -125,7 +125,7 @@ async function checkChain() {
               method: 'wallet_addEthereumChain',
               params: [
                 {
-                  chainName: 'Goerli Test Network',
+                  chainName: 'Goerli',
                   chainId: web3.utils.toHex(chainId),
                   nativeCurrency: { name: 'ETH', decimals: 18, symbol: 'ETH' },
                   rpcUrls: ['https://goerli.prylabs.net'],
