@@ -102,8 +102,8 @@ const updateConnectStatus = async () => {
 
 async function checkChain() {
   let chainId = 0;
-  if (chain === 'goerli') {
-    chainId = 5;
+  if (chain === 'rinkeby') {
+    chainId = 4;
   } else if (chain === 'polygon') {
     chainId = 137;
   } else if (chain === 'ethereum') {
@@ -120,15 +120,15 @@ async function checkChain() {
       // This error code indicates that the chain has not been added to MetaMask.
       if (err.code === 4902) {
         try {
-          if (chain === '') {
+          if (chain === 'rinkeby') {
             await window.ethereum.request({
               method: 'wallet_addEthereumChain',
               params: [
                 {
-                  chainName: 'Goerli',
+                  chainName: 'Rinkeby Test Network',
                   chainId: web3.utils.toHex(chainId),
                   nativeCurrency: { name: 'ETH', decimals: 18, symbol: 'ETH' },
-                  rpcUrls: ['https://goerli.prylabs.net'],
+                  rpcUrls: ['https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
                 },
               ],
             });
@@ -223,7 +223,7 @@ async function loadInfo() {
   }, 1000);
 
   let priceType = '';
-  if (chain === 'goerli' || chain === 'ethereum') {
+  if (chain === 'rinkeby' || chain === 'ethereum') {
     priceType = 'ETH';
   } else if (chain === 'polygon') {
     priceType = 'MATIC';
@@ -288,7 +288,7 @@ function setTotalPrice() {
   const totalPriceWei = BigInt(info.deploymentConfig.mintPrice) * BigInt(mintInputValue);
 
   let priceType = '';
-  if (chain === 'goerli' || chain === 'ethereum') {
+  if (chain === 'rinkeby' || chain === 'ethereum') {
     priceType = 'ETH';
   } else if (chain === 'polygon') {
     priceType = 'MATIC';
@@ -317,8 +317,8 @@ async function mint() {
         .mint(amount)
         .send({ from: window.address, value: value.toString() });
       if (mintTransaction) {
-        if (chain === 'goerli') {
-          const url = `https://goerli.etherscan.io/tx/${mintTransaction.transactionHash}`;
+        if (chain === 'rinkeby') {
+          const url = `https://rinkeby.etherscan.io/tx/${mintTransaction.transactionHash}`;
           const mintedContainer = document.querySelector('.minted-container');
           const countdownContainer = document.querySelector('.countdown');
           const mintedTxnBtn = document.getElementById("mintedTxnBtn");
@@ -354,8 +354,8 @@ async function mint() {
         .presaleMint(amount, merkleJson)
         .send({ from: window.address, value: value.toString() });
       if (presaleMintTransaction) {
-        if (chain === 'goerli') {
-          const url = `https://goerli.etherscan.io/tx/${presaleMintTransaction.transactionHash}`;
+        if (chain === 'rinkeby') {
+          const url = `https://rinkeby.etherscan.io/tx/${presaleMintTransaction.transactionHash}`;
           const mintedContainer = document.querySelector('.minted-container');
           const countdownContainer = document.querySelector('.countdown');
           const mintedTxnBtn = document.getElementById("mintedTxnBtn");
